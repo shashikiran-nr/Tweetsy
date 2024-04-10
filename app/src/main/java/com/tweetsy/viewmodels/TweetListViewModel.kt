@@ -18,10 +18,12 @@ class TweetListViewModel @Inject constructor(
         val tweets : StateFlow<List<TweetListItem>>
             get() = repository.tweets
 
+    var category: String? = null
+
     init {
         viewModelScope.launch {
-            val category = savedStateHandle.get<String>("category") ?: "android"
-            repository.getTweets(category)
+            category = savedStateHandle.get<String>("category") ?: "android"
+            repository.getTweets(category!!)
         }
     }
 }
